@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bodem Aishwarya - Portfolio</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles for the dark, neon-accent theme */
+        :root {
+            /* Define custom colors based on the video's aesthetic */
+            --color-primary-bg: #11001F; /* Very deep purple/black */
+            --color-card-bg: #251A3B;   /* Slightly lighter purple for cards */
+            --color-accent-start: #BF40BF; /* Neon Magenta */
+            --color-accent-end: #7F00FF;   /* Neon Violet */
+            --color-text-light: #F0F0F0;
+            --color-text-muted: #B0AEC7;
+        }
+
+        body {
+            background-color: var(--color-primary-bg);
+            color: var(--color-text-light);
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Gradient for buttons, text, and accents */
+        .neon-gradient-bg {
+            background-image: linear-gradient(to right, var(--color-accent-start), var(--color-accent-end));
+        }
+
+        .neon-gradient-text {
+            /* Fallback for browsers that don't support text stroke */
+            color: var(--color-accent-end);
+        }
+
+        /* Timeline specific styling */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem; /* Space for the line and circle */
+            border-left: 2px solid var(--color-card-bg); /* The main line */
+        }
+
+        .timeline-item:last-child {
+            border-left: none; /* Hide the line for the last item */
+            padding-bottom: 2rem;
+        }
+
+        .timeline-circle {
+            position: absolute;
+            left: -11px; /* Center the circle over the line */
+            top: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background-color: var(--color-accent-end);
+            border: 4px solid var(--color-primary-bg); /* Outer ring to blend with background */
+            z-index: 10;
+        }
+
+        /* Custom scrollbar to match dark theme */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--color-primary-bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-card-bg);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent-end);
+        }
+
+        /* Project filter button active state */
+        .filter-button.active {
+            background-color: var(--color-accent-end);
+            color: white;
+            box-shadow: 0 4px 15px rgba(127, 0, 255, 0.4);
+        }
+
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Tailwind Config for custom colors in JS scope -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-bg': 'var(--color-primary-bg)',
+                        'card-bg': 'var(--color-card-bg)',
+                        'accent-start': 'var(--color-accent-start)',
+                        'accent-end': 'var(--color-accent-end)',
+                        'text-muted': 'var(--color-text-muted)',
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Header / Navigation (Simple mobile header matching the video) -->
+    <header class="sticky top-0 z-20 w-full p-4 bg-primary-bg/95 backdrop-blur-sm border-b border-card-bg shadow-lg">
+        <div class="flex justify-between items-center max-w-5xl mx-auto">
+            <h1 class="text-xl font-bold">Portfolio</h1>
+            <!-- Menu Icon (Mobile Only) -->
+            <button id="menu-button" class="lg:hidden p-2 rounded-full hover:bg-card-bg transition duration-150">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+            </button>
+            <!-- Desktop Nav -->
+            <nav class="hidden lg:flex space-x-8 text-text-muted font-medium">
+                <a href="#home" class="hover:text-accent-end transition">Home</a>
+                <a href="#skills" class="hover:text-accent-end transition">Skills</a>
+                <a href="#experience" class="hover:text-accent-end transition">Experience</a>
+                <a href="#projects" class="hover:text-accent-end transition">Projects</a>
+                <a href="#contact" class="hover:text-accent-end transition">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-5xl mx-auto px-6 py-12 md:px-8">
+
+        <!-- 1. HERO SECTION -->
+        <section id="home" class="text-center pt-8 pb-16">
+            <div id="hero-content" class="transition duration-500 ease-in-out">
+                <div class="relative w-48 h-48 mx-auto mb-8 rounded-full overflow-hidden border-4 border-card-bg shadow-2xl">
+                    <!-- CHANGE HERE: Use a relative path 'profile.jpg' and add an onerror fallback. -->
+                    <img src="profile.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x400/251A3B/B0AEC7?text=Your+Photo+Placeholder';" alt="Profile Picture" class="w-full h-full object-cover">
+                    <!-- Decorative Ring matching the video -->
+                    <div class="absolute inset-0 rounded-full border-4 border-accent-end/30 animate-pulse-slow"></div>
+                </div>
+
+                <h2 class="text-4xl md:text-5xl font-extrabold mb-2">
+                    Hi, I am <span class="neon-gradient-text">Bodem Sri Durga Devi Lakshmi Aishwarya</span>
+                </h2>
+                <p class="text-2xl md:text-3xl font-semibold mb-6 text-accent-start">
+                    I am a <span id="dynamic-title" class="font-bold">Full Stack Developer</span>
+                </p>
+
+                <p class="text-lg text-text-muted max-w-3xl mx-auto mb-10 leading-relaxed">
+                    I am a motivated and versatile individual, always eager to take on new challenges. With a passion for learning I am dedicated to delivering high-quality results. With a positive attitude and a growth mindset, I am ready to make a meaningful contribution and achieve great things.
+                </p>
+
+                <!-- Updated Button to trigger the displayResume function -->
+                <button onclick="displayResume()" class="inline-block px-10 py-4 text-lg font-bold rounded-full neon-gradient-bg shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-105">
+                    Check Resume
+                </button>
+            </div>
+            
+            <!-- RESUME EMBED SECTION (Hidden by default) -->
+            <div id="resume-viewer" class="hidden pt-12">
+                <div class="flex justify-center mb-6">
+                    <button onclick="hideResume()" class="px-6 py-2 text-sm font-medium rounded-full border border-text-muted text-text-muted hover:border-accent-end hover:text-accent-end transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x inline-block mr-2"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        Close Resume
+                    </button>
+                </div>
+                <!-- CHANGE HERE: Use a relative path 'resume.pdf' -->
+                <iframe src="resume.pdf" class="w-full min-h-[80vh] border-4 border-card-bg rounded-xl shadow-2xl" frameborder="0">
+                    <!-- CHANGE HERE: Use a relative path 'resume.pdf' -->
+                    <p class="text-text-muted p-4">Your browser does not support PDFs. You can <a href="resume.pdf" target="_blank" class="text-accent-end underline">download the resume here</a>.</p>
+                </iframe>
+            </div>
+        </section>
+
+
+        <!-- 2. SKILLS SECTION -->
+        <section id="skills" class="py-12">
+            <h2 class="text-4xl font-extrabold text-center mb-12">
+                Skills
+            </h2>
+            <p class="text-center text-text-muted mb-10 max-w-3xl mx-auto">
+Here are some of the skills I’m familiar with and continue to build upon.            </p>
+
+            <div class="space-y-8">
+                <!-- Skill Card Template -->
+                <div class="p-6 md:p-8 bg-card-bg rounded-4xl shadow-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Programming Languages</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <!-- Skill Tags -->
+                        <div class="skill-tag">Java</div>
+                        <div class="skill-tag">SQL</div>
+
+                    </div>
+                </div>
+
+
+                <div class="p-6 md:p-8 bg-card-bg rounded-4xl shadow-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Web Development</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="skill-tag">HTML5</div>
+                        <div class="skill-tag">CSS</div>
+                        <div class="skill-tag">JavaScript</div>
+                        <div class="skill-tag">Bootstrap</div>
+                        <div class="skill-tag">React Js</div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 bg-card-bg rounded-4xl shadow-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Other Technologies</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="skill-tag">SAP MM</div>
+                        <div class="skill-tag">Omniverse</div>
+                        <div class="skill-tag">Excel</div>
+                    </div>
+                </div>
+                <div class="p-6 md:p-8 bg-card-bg rounded-4xl shadow-2xl">
+                    <h3 class="text-2xl font-bold mb-6">Core Engineering & Operations</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <div class="skill-tag">AutoCAD</div>
+                        <div class="skill-tag">Production Planning</div>
+                        <div class="skill-tag">EHS</div>
+                        <div class="skill-tag">SAP PP</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. EXPERIENCE SECTION -->
+        <section id="experience" class="py-12">
+            <h2 class="text-4xl font-extrabold text-center mb-12">Experience</h2>
+            <p class="text-center text-text-muted mb-10 max-w-3xl mx-auto">
+                My work experience as a Packaged app development associate and working on different companies and projects.
+            </p>
+
+            <div class="space-y-12">
+                <!-- Experience Item 1 -->
+                 <div class="timeline-item">
+                    <div class="timeline-circle"></div>
+                    <div class="p-6 bg-card-bg rounded-4xl shadow-2xl ml-4 transition duration-300 hover:scale-[1.01] hover:shadow-accent-end/20">
+                        <div class="flex items-start mb-4">
+                             <!-- Placeholder Logo -->
+                            <div class="p-3 mr-4 rounded-xl bg-accent-end/20">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7F00FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">Packaged app development associate</h3>
+                                <p class="text-text-muted">Accenture solutions private limited</p>
+                                <p class="text-sm text-accent-start">Oct 2024 - Present</p>
+                            </div>
+                        </div>
+                        <p class="text-text-muted mb-4">
+                            Trained in SAP Materials Management with hands-on experience in procurement, inventory management, and related business processes. Currently contributing as an Omniverse Developer, focusing on 3D development and immersive technology solutions.
+                        </p>
+                        <p class="text-sm font-semibold">Skills: <span class="text-text-muted">SAP.Omniverse platform.3D Modeling/Visualization Tools</span></p>
+                    </div>
+                </div>
+                
+                <!-- Experience Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-circle"></div>
+                    <div class="p-6 bg-card-bg rounded-4xl shadow-2xl ml-4 transition duration-300 hover:scale-[1.01] hover:shadow-accent-end/20">
+                        <div class="flex items-start mb-4">
+                             <!-- Placeholder Logo -->
+                            <div class="p-3 mr-4 rounded-xl bg-accent-end/20">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7F00FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">Graduate Engineer Trainee</h3>
+                                <p class="text-text-muted">Cargill India private limited</p>
+                                <p class="text-sm text-accent-start">June 2024 - Sept 2024</p>
+                            </div>
+                        </div>
+                        <p class="text-text-muted mb-4">
+                            During my internship at Cargill as a Graduate Engineer Trainee, I completed foundational training in industrial processes, including Environmental Health & Safety (EHS) and production planning. I also gained practical exposure to production workflows, SAP batch card creation, and basic maintenance operations.
+                        </p>
+                        <p class="text-sm font-semibold">Skills: <span class="text-text-muted">SAP (Materials Management / Production Module).Production Planning & Schedulin.Omniverse platform.EHS Industrial Safety Practices.Microsoft Excel / Word</span></p>
+                    </div>
+                </div>
+
+                <!-- Experience Item 3 -->
+                      <div class="timeline-item">
+                    <div class="timeline-circle"></div>
+                    <div class="p-6 bg-card-bg rounded-4xl shadow-2xl ml-4 transition duration-300 hover:scale-[1.01] hover:shadow-accent-end/20">
+                        <div class="flex items-start mb-4">
+                            <!-- Placeholder Logo -->
+                            <div class="p-3 mr-4 rounded-xl bg-accent-end/20">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#BF40BF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-code"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">Full stack trainee</h3>
+                                <p class="text-text-muted">Technical Hub private limited</p>
+                                <p class="text-sm text-accent-start">July 2022 - July 2023</p>
+                            </div>
+                        </div>
+                        <p class="text-text-muted mb-4">
+                            Completed a one-year Full-Stack Development program at Technical Hub, gaining hands-on experience through training, projects, and assessments. Successfully earned a JavaScript certification and completed a full-stack project, demonstrating practical application of the skills learned.
+                        </p>
+                        <p class="text-sm font-semibold">Skills: <span class="text-text-muted">HTML5.CSS3.Bootstrap.JavaScript.React.js</span></p>
+                    </div>
+                </div>
+
+
+                
+            </div>
+        </section>
+
+        <!-- 4. PROJECTS SECTION -->
+        <section id="projects" class="py-12">
+            <h2 class="text-4xl font-extrabold text-center mb-12">Projects</h2>
+            <p class="text-center text-text-muted mb-10 max-w-3xl mx-auto">
+                I have worked on a wide range of projects, from web apps to machine learning. Here are some examples of my work.
+            </p>
+
+            <!-- Project Filters -->
+            <div class="flex justify-center flex-wrap gap-3 mb-12">
+                <button class="filter-button active" data-filter="all">All</button>
+                <button class="filter-button" data-filter="web-app">WEB APP</button>
+                <button class="filter-button" data-filter="ml">Omniverse</button>
+            </div>
+
+            <!-- Project Grid -->
+            <div id="project-list" class="grid gap-8">
+                
+                <!-- Project Card 1 (ML) -->
+                <div class="project-card" data-category="web-app">
+                    <div class="p-6 bg-card-bg rounded-4xl shadow-2xl transition duration-300 hover:scale-[1.01] hover:shadow-accent-end/20">
+                        <!-- CHANGE HERE: Use a relative path 'project-thumbnail-1.png' and add a fallback placeholder. -->
+                       <div class="aspect-video bg-gray-700 rounded-2xl mb-4 overflow-hidden">
+                            <img src="project-thumbnail-1.png" onerror="this.onerror=null; this.src='https://placehold.co/800x450/444444/FFFFFF?text=Project+Thumbnail+1';" alt="Project Thumbnail" class="w-full h-full object-cover">
+                        </div>
+
+                        <h3 class="text-xl font-bold mb-2">Visitor's Pass Management System</h3>
+                        <p class="text-sm text-accent-start mb-3">July 2022 - July 2023</p>
+                        <p class="text-text-muted mb-4">
+                            Developed a step-by-step management system as part of Full-Stack Development training. Built the frontend extensively using HTML, CSS, and React.js, creating interactive user interfaces and ensuring responsive design. Implemented dynamic features for seamless user experience and integrated basic data handling.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tag-sm">HTML</span>
+                            <span class="tag-sm">CSS</span>
+                            <span class="tag-sm">BOOTSTRAP</span>
+                            <span class="tag-sm">JAVASCRIPT</span>
+                            <span class="tag-sm">REACTJS</span>
+                            <span class="tag-sm">MONGODB</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project Card 2 (Web App) -->
+                <div class="project-card" data-category="ml">
+                    <div class="p-6 bg-card-bg rounded-4xl shadow-2xl transition duration-300 hover:scale-[1.01] hover:shadow-accent-end/20">
+                        <!-- Video/Image Placeholder -->
+                       <div class="aspect-video bg-gray-700 rounded-2xl mb-4 overflow-hidden">
+                            <img src="https://placehold.co/800x450/444444/FFFFFF?text=Omniverse" alt="Project Thumbnail" class="w-full h-full object-cover">
+                        </div>
+
+                        <h3 class="text-xl font-bold mb-2">Omniverse 3d artist</h3>
+                        <p class="text-sm text-accent-start mb-3">Aug 2024 - present</p>
+                        <p class="text-text-muted mb-4">
+                            Working as a 3D Omniverse Developer and 3D Artist, creating interactive 3D environments and simulations. Focused on 3D modeling, scene creation, and real-time rendering workflows using Omniverse tools to deliver immersive visualization solutions.
+                        </p>
+                        <div class="flex flex-wrap gap-2 text-sm">
+                            <span class="tag-sm">Omniverse Platform</span>
+                            <span class="tag-sm">3D Modeling Tools</span>
+                            <span class="tag-sm">Real-Time Rendering Tools</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add more project cards here following the structure -->
+            </div>
+        </section>
+
+        <!-- 5. EDUCATION SECTION (Vertical Timeline) -->
+        <section id="education" class="py-12">
+            <h2 class="text-4xl font-extrabold text-center mb-12">Education</h2>
+            <p class="text-center text-text-muted mb-10 max-w-3xl mx-auto">
+                My education has been a journey of self-discovery and growth. My educational details are as follows.
+            </p>
+            <div class="space-y-12">
+                <!-- Education Item 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-circle bg-accent-start"></div>
+                    <div class="p-6 bg-card-bg rounded-4xl shadow-2xl ml-4 transition duration-300 hover:scale-[1.01] hover:shadow-accent-end/20">
+                        <div class="flex items-start mb-4">
+                            <!-- Placeholder Logo -->
+                            <div class="p-3 mr-4 rounded-xl bg-accent-end/20">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#BF40BF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-school"><path d="M14 22v-4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v4"/><path d="M22 6L12 1L2 6v15l10-5 10 5z"/><path d="M5 10l7-3 7 3"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">Aditya Engineering College</h3>
+                                <p class="text-text-muted">Bachelor of Technology - BTech,Mechanical Engineering </p>
+                                <p class="text-sm text-accent-start">June 2020 - June 2024</p>
+                            </div>
+                        </div>
+                        <p class="text-sm font-semibold mb-3">Grade: <span class="text-text-muted">8.21 CGPA</span></p>
+                        <p class="text-text-muted">
+                            I Have completed Bachelor's degree in Mechanical Engineering at Aditya Engineering College, Kakinada,India. I have a CGPA of 8.21.And also i have a minor degree in Computer Science Engineering at Aditya Engineering college
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Education Item 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-circle bg-accent-start"></div>
+                    <div class="p-6 bg-card-bg rounded-4xl shadow-2xl ml-4 transition duration-300 hover:scale-[1.01] hover:shadow-accent-end/20">
+                        <div class="flex items-start mb-4">
+                            <!-- Placeholder Logo -->
+                            <div class="p-3 mr-4 rounded-xl bg-accent-end/20">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7F00FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-award"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 18 17 23 15.79 13.88"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold">Vikas Junior College</h3>
+                                <p class="text-text-muted">BIEAP(XII) / Intermediate</p>
+                                <p class="text-sm text-accent-start">Jun 2018 - April 2020</p>
+                            </div>
+                        </div>
+                        <p class="text-sm font-semibold mb-3">Grade: <span class="text-text-muted">9.89 CGPA</span></p>
+                        <p class="text-text-muted">
+                            Completed my high school education at Vikas Junior college in Nidadavole and received a score of 9.89 CGPA.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CONTACT SECTION -->
+<section id="contact" class="py-12">
+            <h2 class="text-4xl font-extrabold text-center mb-12">
+                Get in Touch
+            </h2>
+            <p class="text-center text-text-muted mb-10 max-w-3xl mx-auto">
+                I'm currently available for new opportunities. Please Click the button below to send me an email directly!
+            </p>
+
+            <div class="text-center">
+                <!-- ACTION REQUIRED: CHANGE 'your-email@example.com' to your actual email address. -->
+                <a href="mailto:aishwaryabodem@gmail.com?subject=Portfolio%20Inquiry%20from%20Website" 
+                   class="inline-block px-12 py-4 text-lg font-bold rounded-full neon-gradient-bg shadow-xl hover:shadow-2xl transition duration-300 transform hover:scale-105">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail inline-block mr-2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.83 1.83 0 0 1-2.06 0L2 7"/></svg>
+                    Email Me Directly
+                </a>
+                
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-6 text-text-muted text-sm border-t border-card-bg mt-12">
+        <p>&copy; 2024 Bodem Sri Durga Devi Lakshmi Aishwarya . All rights reserved. |</p>
+    </footer>
+
+    <!-- JavaScript for Dynamic Title, Skill Tags, Project Filtering, and Resume Toggle -->
+    <script>
+        // 1. Dynamic Typing Effect for Title
+        const titles = ["Packaged App Development Associate", "Full Stack Developer", "SAP MM Consultant", "Omniverse Developer"];
+        let titleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const titleElement = document.getElementById('dynamic-title');
+
+        function typeTitle() {
+            const currentTitle = titles[titleIndex];
+            const displayTitle = isDeleting
+                ? currentTitle.substring(0, charIndex - 1)
+                : currentTitle.substring(0, charIndex + 1);
+
+            if (titleElement) {
+                 titleElement.textContent = displayTitle;
+            } else {
+                console.error("Dynamic title element not found.");
+                return;
+            }
+
+            const typingSpeed = isDeleting ? 50 : 150;
+
+            if (!isDeleting && charIndex === currentTitle.length) {
+                setTimeout(() => isDeleting = true, 1500); // Pause at end
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                titleIndex = (titleIndex + 1) % titles.length; // Move to next title
+            }
+
+            charIndex += isDeleting ? -1 : 1;
+            setTimeout(typeTitle, typingSpeed);
+        }
+
+        // 2. Resume Toggle Functions - ADDED CONSOLE LOGS FOR DEBUGGING
+        function displayResume() {
+            const heroContent = document.getElementById('hero-content');
+            const resumeViewer = document.getElementById('resume-viewer');
+
+            if (!heroContent || !resumeViewer) {
+                console.error("Error: 'hero-content' or 'resume-viewer' elements not found in the DOM.");
+                return;
+            }
+
+            console.log("Displaying Resume...");
+            heroContent.classList.add('hidden');
+            resumeViewer.classList.remove('hidden');
+            
+            // Scroll to the top of the section when resume is displayed
+            document.getElementById('home').scrollIntoView({ behavior: 'smooth' }); 
+        }
+
+        function hideResume() {
+            const heroContent = document.getElementById('hero-content');
+            const resumeViewer = document.getElementById('resume-viewer');
+
+            if (!heroContent || !resumeViewer) {
+                console.error("Error: 'hero-content' or 'resume-viewer' elements not found in the DOM.");
+                return;
+            }
+
+            console.log("Hiding Resume...");
+            heroContent.classList.remove('hidden');
+            resumeViewer.classList.add('hidden');
+            
+            // Scroll back to the top of the section when resume is hidden
+            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        // 3. Initial Setup and Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Start the typing effect
+            typeTitle();
+
+            // Style all skill tags
+            const skillTags = document.querySelectorAll('.skill-tag');
+            skillTags.forEach(tag => {
+                tag.classList.add('px-4', 'py-2', 'rounded-full', 'bg-accent-end/20', 'text-sm', 'font-medium', 'text-text-light', 'shadow-md', 'hover:bg-accent-end/40', 'transition', 'cursor-pointer');
+            });
+             
+            // Style small tags used in projects
+            const smallTags = document.querySelectorAll('.tag-sm');
+            smallTags.forEach(tag => {
+                tag.classList.add('px-3', 'py-1', 'rounded-lg', 'bg-accent-end/10', 'text-xs', 'font-medium', 'text-accent-start');
+            });
+
+
+            // 4. Project Filtering Logic
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const projectCards = document.querySelectorAll('.project-card');
+
+            filterButtons.forEach(button => {
+                button.classList.add('px-6', 'py-2', 'rounded-full', 'border', 'border-accent-end/50', 'bg-card-bg', 'text-text-muted', 'font-semibold', 'transition', 'duration-300', 'hover:bg-accent-end/30');
+                
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to the clicked button
+                    button.classList.add('active');
+
+                    const filter = button.getAttribute('data-filter');
+
+                    // Filter project cards
+                    projectCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Set initial project card layout to match video (single column on mobile)
+            document.getElementById('project-list').classList.add('grid-cols-1', 'md:grid-cols-2');
+
+            // Initialize Lucide icons
+            lucide.createIcons();
+        });
+    </script>
+
+</body>
+</html>
